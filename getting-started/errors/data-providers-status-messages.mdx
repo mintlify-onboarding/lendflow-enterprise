@@ -1,0 +1,107 @@
+---
+title: "Data Providers Status Messages"
+description: "In majority cases, Lendflow forwards the error message from data provider in the status attribute of the commercial_data endpoint. There are also errors that are not user friendly, so Lendflow had to update how they are returned, to improve clarity."
+---
+
+Below are messages returned by us with short description.
+
+**Experian**
+
+| Status                                                                                                       | Description                                                                                                                                                                    |
+|--------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Business not found                                                                                           | Experian did not find any match between the submitted data and their records. Although this is a successful response, we're returning it the same way as other error messages. |
+| The service did not respond within a reasonable time. Try again later.                                       | Unsuccessful response from the data provider. Needs to be reported for deeper investigation (ie data provider returns an error 50x).                                           |
+| Error while searching for Business `{business_legal_name}`                                                     | Unsuccessful response from the data provider. Needs to be reported for deeper investigation.                                                                                   |
+| Something went wrong. Try again later                                                                        | Unsuccessful response from the data provider. Needs to be reported for deeper investigation.                                                                                   |
+| There is currently a problem retrieving data from Experian. For support please contact your account manager. | Unsuccessful response from the data provider. Needs to be reported for deeper investigation.                                                                                   |
+| Business owner SSN must be a string. Business owner SSN is required.                                         | When a business owner's Social Security Number is not provided, bu it's required to make the call to the data provider                                                         |
+
+**Middesk**
+
+| Status                          | Description                                                                                  |
+|---------------------------------|----------------------------------------------------------------------------------------------|
+| Middesk: cannot create business | Unsuccessful response from the data provider. Needs to be reported for deeper investigation. |
+
+**Ekata**
+
+| Status                                                   | Description                                                                                  |
+|----------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Ekata completely failed for application `{application_id}` | Unsuccessful response from the data provider. Needs to be reported for deeper investigation. |
+
+**Ocrolus**
+
+| Status                                                                 | Description                                                                                                                          |
+|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| The service did not respond within a reasonable time. Try again later. | Unsuccessful response from the data provider. Needs to be reported for deeper investigation (ie data provider returns an error 50x). |
+
+**LexisNexis**
+
+| Status                  | Description                                                                                                                                                                      |
+|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| No search results found | LexisNexis did not find any match between the submitted data and their records. Although this is a successful response, we're returning it the same way as other error messages. |
+
+**Clear**
+
+| Status                                | Description                                                                                                                                                                 |
+|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Something went wrong while searching. | Unsuccessful response from the data provider. Needs to be reported for deeper investigation.                                                                                |
+| No search results found.              | Clear did not find any match between the submitted data and their records. Although this is a successful response, we're returning it the same way as other error messages. |
+
+**Equifax**
+
+| Status                                     | Description                                                                                                                                                                 |
+|--------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Something went wrong while searching.      | Unsuccessful response from the data provider. Needs to be reported for deeper investigation.                                                                                |
+| No search results found: `{Equifax hitcode}` | Clear did not find any match between the submitted data and their records. Although this is a successful response, we're returning it the same way as other error messages. |
+
+**DnB**
+
+
+| Status                                                  | Description                                                                                                                                                               |
+|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DNB service DUNS lookup, error: `{DnB error}`             | DnB did not find any match between the submitted data and their records. Although this is a successful response, we're returning it the same way as other error messages. |
+| DNB service Name and Address Lookup, error: `{DnB error}` | DnB did not find any match between the submitted data and their records. Although this is a successful response, we're returning it the same way as other error messages. |
+
+**MoneyThumb**
+
+| Status                                                                 | Description                                                                                                                          |
+|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Something went wrong while processing the request.                     | Unsuccessful response from the data provider. Needs to be reported for deeper investigation.                                         |
+| The service did not respond within a reasonable time. Try again later. | Unsuccessful response from the data provider. Needs to be reported for deeper investigation (ie data provider returns an error 50x). |
+| Uploaded bank statements are required to perform CFA                   | Data provider cannot process the request without uploaded bank statements                                                            |
+
+**Scorely**
+
+| Status                       | Description                                                                                                                                                                   |
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| No business found            | Scorely did not find any match between the submitted data and their records. Although this is a successful response, we're returning it the same way as other error messages. |
+| Business search in progress. | Scorely is running a search for the business. This status should be updated within 24hrs from the initial request.                                                            |
+
+**Codat**
+
+| Status                                                                          | Description                                                                                  |
+|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Accounting: Codat failed request `{requestName}` for application `{application_id}` | Unsuccessful response from the data provider. Needs to be reported for deeper investigation. |
+
+**Railz**
+
+| Status                                                                          | Description                                                                                  |
+|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Accounting: Railz failed request `{requestName}` for application `{application_id}` | Unsuccessful response from the data provider. Needs to be reported for deeper investigation. |
+
+**Rutter**
+
+
+| Status                                                                           | Description                                                                                  |
+|----------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Accounting: Rutter failed request `{requestName}` for application `{application_id}` | Unsuccessful response from the data provider. Needs to be reported for deeper investigation. |
+
+**TaxStatus**
+
+| Status                                | Description                                                                                                                                                                     |
+|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Something went wrong while searching. | Unsuccessful response from the data provider. Needs to be reported for deeper investigation.                                                                                    |
+| Taxpayer not found.                   | TaxStatus did not find any match between the submitted data and their records. Although this is a successful response, we're returning it the same way as other error messages. |
+| Waiting on IRS                        | Data provider does not have the record about the inquiry, but there is a delay on IRS side                                                                                      |
+| IRS system down                       | IRS system is offline occasionally, so the request will need to be repeated later                                                                                               |
+

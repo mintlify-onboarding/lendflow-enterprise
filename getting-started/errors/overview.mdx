@@ -1,0 +1,19 @@
+---
+title: "Errors"
+sidebarTitle: "Overview"
+---
+
+Lendflow uses conventional HTTP response codes to indicate the success or failure of an API request:
+
+| Status code | Description                                                      |
+|-------------|------------------------------------------------------------------|
+| `20x`         | The request was successfully received, understood, and accepted  |
+| `4xx`         | The request contains bad syntax or cannot be fulfilled           |
+| `50x`         | The Lendflow server failed to fulfill a request (these are rare) |
+
+When the error occurs, the Lendflow API response consists:
+
+| Parameter | Type   | Description                                                                                                                                                                                                    |
+|-----------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| message   | `string` | Always present. High-level summary of an error (ie "Unauthenticated", "The HTTP method associated with the request is not supported. Supported methods: GET, HEAD, POST")                                      |
+| errors    | `object` | Present when the error comes from the request validation. An object whose keys are fields with errors, and values are arrays of the error messages found (ie. "The selected requested_products.0 is invalid.") |

@@ -1,0 +1,52 @@
+---
+title: "Custom Date Range for Ocrolus and Plaid"
+slug: "including-a-custom-date-range-for-ocrolus-and-plaid"
+hidden: false
+createdAt: "2022-06-15T19:24:32.089Z"
+updatedAt: "2022-06-17T14:29:38.768Z"
+---
+
+## Amount of prior months, custom selection and month-to-date
+
+The custom date range can be included only for 2 data service providers - Ocrolus and Plaid. 
+
+You have 3 options for the custom date range:
+
+* Include the amount of prior months you would like to use for the attribute 
+
+* Select custom month range
+
+* Select month-to-date 
+
+![](https://files.readme.io/0757a76-image-20220310-230116.png)
+
+The three options mentioned above cannot be selected together. They all have to be selected separately from each other. 
+
+If you select the number of prior months option - the value of the attribute you have selected within the condition you have set will be evaluated based on the number of prior months you have selected. It is dynamic because it depends on the most recent months. In this example, it relies on the last six months.
+
+If you select the custom selection option - the value of the attribute you have selected within the condition you have set will be evaluated based on the months you have selected. It is static as it relies on the months you have selected.
+
+If you select months to date option - the value of the attribute you have selected within the condition you have set will be evaluated based on month to date time range (from the beginning of the current months till today’s date). This option is dynamic as it changes based on the date you are running orchestration. 
+
+If you select “Apply to All” button - the time range you have selected for the current attribute will be applied to all attributes within the group. 
+
+<Info>
+  - Custom date range ability applies only to 2 data providers - Ocrolus and Plaid
+
+  - Amount of last months, custom range, and month-to-date options can be selected only separately from each other
+
+  - Select number of prior months and month to date options are dynamic whereas the custom select option is static
+
+  - Apply to all button applies time range selected for all attributes within the group of the condition
+
+  - By default 6 most recent months are selected for every attribute for Ocrolus and Plaid
+</Info>
+
+## How to select custom date range for the selected attribute
+To select the time range, you need to click on the conditional argument and click “Set value” for the selected attribute. Here you will see “Months” field which allows you to set the time range you want.
+
+<video
+  controls
+  className="w-full aspect-video"
+  src="https://lendflow-documentation.s3.us-west-2.amazonaws.com/Customdate.mov"
+></video>

@@ -1,0 +1,363 @@
+---
+title: "Global Workflows"
+description: "These webhook notifications should only be used if deals are flowing through a Global Workflow template. If you are using a custom workflow template, refer to this guide"
+---
+
+## Configuring Webhook Notifications
+
+To configure webhooks, go to the Organization settings and click on the ‘Webhook Notifications' tab. Enter the url where webhook notifications will be sent to and turn the toggle on to see the available webhook options. Check the desired boxes to turn on webhook notifications and hit the save button at the bottom of the page to apply the change.
+
+![](/images/b7b99b2-small-image-20230426-201245.png)
+
+## Definition of Available Webhooks
+
+**Application Started**
+
+An application has begun and a deal has been created in Lendflow, but all the widget screens have not been completed. The user has made it past the ‘What business is receiving the Funding?’ screen.
+
+```json JSON
+{  
+ "application_uuid": "eb176192-4738-4f0d-ae0d-ace90c9d9db7",
+ "message": "New Application has been created",
+ "url": "https://qa2-api.lendflow.co/api/v2/applications/eb176192-4738-4f0d-ae0d-ace90c9d9db7",
+ "timestamp": "2023-01-30T18:31:21.643682Z",
+ "client_tracking_token": null,
+ "workflow": "funding",
+ "status": "application started",
+ "status_rollback": false
+}
+```
+
+**Application Fully Submitted**
+
+All the widget screens have been fully completed.
+
+```json JSON
+{ 
+  "application_uuid": "eb176192-4738-4f0d-ae0d-ace90c9d9db7",
+  "message": "The application has been fully submitted.",
+  "url": "https://qa2-dashboard.lendflow.co/deals/eb176192-4738-4f0d-ae0d-ace90c9d9db7/progress",
+  "timestamp": "2023-01-30T18:43:33.560311Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "application fully submitted",
+  "status_rollback": false
+}
+```
+
+**Application Completed**
+
+The widget information has been fully completed, bank data has been collected and a signed application has been received.
+
+```json JSON 
+{
+  "application_uuid": "eb176192-4738-4f0d-ae0d-ace90c9d9db7",
+  "message": "Application completed",
+  "url": "https://qa2-dashboard.lendflow.co/deals/eb176192-4738-4f0d-ae0d-ace90c9d9db7/progress",
+  "timestamp": "2023-01-30T18:41:19.386467Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "application completed",
+  "status_rollback": false
+ }
+ ```
+
+ **Underwriting**
+
+ The deal has been moved to the ‘Underwriting’ stage.
+
+```json JSON
+{
+  "application_uuid": "afd68d99-06e9-4746-ae26-44922ba8c705",
+  "message": "Application status has been updated to Underwriting",
+  "url": "https://qa1-api.lendflow.co/api/v2/applications/afd68d99-06e9-4746-ae26-44922ba8c705",
+  "timestamp": "2022-12-28T19:53:30.806523Z",
+  "client_tracking_token": null,
+  "workflow": "internal_funding",
+  "status": "underwriting",
+  "status_rollback": false
+}
+```
+
+**Offer**
+
+The deal has moved to the Offer stage.
+
+```json JSON
+{
+  "application_uuid": "55f7fdec-66e6-41d5-9d43-edb1ec75a8af",
+  "message": "Application status has been updated to Offer Out",
+  "url": "https://sandbox-api.lendflow.com/api/v2/applications/55f7fdec-66e6-41d5-9d43-edb1ec75a8af",
+  "timestamp": "2022-09-19T19:26:34.373088Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "offer",
+  "status_rollback": false
+}
+```
+
+Offer details were added and saved.
+
+```json JSON 
+{
+  "application_uuid": "55f7fdec-66e6-41d5-9d43-edb1ec75a8af",
+  "message": "New Offer Created",
+  "url": "https://sandbox-dashboard.lendflow.com/deals/55f7fdec-66e6-41d5-9d43-edb1ec75a8af/progress",
+  "timestamp": "2022-09-19T19:27:12.992380Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "offer",
+  "status_rollback": false
+}
+```
+
+**Offer Accepted**
+
+The applicant has accepted an offer and the offer status has changed to ‘Accepted’.
+
+```json JSON 
+{
+  "application_uuid": "8e62ebbc-49cf-45e4-86ed-77d2ce066ec5",
+  "message": "Offer accepted",
+  "url": "https://qa2-dashboard.lendflow.co/deals/8e62ebbc-49cf-45e4-86ed-77d2ce066ec5/progress",
+  "timestamp": "2023-04-26T19:32:59.370574Z",
+  "client_tracking_token": null,
+  "workflow": "internal_funding",
+  "workflow_template_id": "77c32219-4b19-11ed-90dd-02dca2ee6cf9",
+  "status": "offer",
+  "status_rollback": false,
+  "offer_id": "14261cfc-22fa-4214-8740-9ae412f1b9df"
+}
+```
+
+**Offer Sent**
+
+An offer has been sent to an applicant and the offer status has changed to ‘Sent’.
+
+```json JSON
+{
+  "application_uuid": "8e62ebbc-49cf-45e4-86ed-77d2ce066ec5",
+  "message": "Offer sent",
+  "url": "https://qa2-dashboard.lendflow.co/deals/8e62ebbc-49cf-45e4-86ed-77d2ce066ec5/progress",
+  "timestamp": "2023-04-26T19:34:22.009158Z",
+  "client_tracking_token": null,
+  "workflow": "internal_funding",
+  "workflow_template_id": "77c32219-4b19-11ed-90dd-02dca2ee6cf9",
+  "status": "offer",
+  "status_rollback": false,
+  "offer_id": "14261cfc-22fa-4214-8740-9ae412f1b9df"
+}
+```
+
+**Offer Declined**
+
+The offer has been declined and the offer status has changed to ‘Declined’.
+
+```json JSON
+{
+  "application_uuid": "8e62ebbc-49cf-45e4-86ed-77d2ce066ec5",
+  "message": "Offer declined",
+  "url": "https://qa2-dashboard.lendflow.co/deals/8e62ebbc-49cf-45e4-86ed-77d2ce066ec5/progress",
+  "timestamp": "2023-04-26T19:38:18.819539Z",
+  "client_tracking_token": null,
+  "workflow": "internal_funding",
+  "workflow_template_id": "77c32219-4b19-11ed-90dd-02dca2ee6cf9",
+  "status": "offer",
+  "status_rollback": false,
+  "offer_id": "14261cfc-22fa-4214-8740-9ae412f1b9df"
+}
+```
+
+**Offer Retracted**
+
+The offer has been retracted and the offer status has changed to ‘Retracted’.
+
+```json JSON
+{
+  "application_uuid": "8e62ebbc-49cf-45e4-86ed-77d2ce066ec5",
+  "message": "Offer retracted",
+  "url": "https://qa2-dashboard.lendflow.co/deals/8e62ebbc-49cf-45e4-86ed-77d2ce066ec5/progress",
+  "timestamp": "2023-04-26T19:39:10.050123Z",
+  "client_tracking_token": null,
+  "workflow": "internal_funding",
+  "workflow_template_id": "77c32219-4b19-11ed-90dd-02dca2ee6cf9",
+  "status": "offer",
+  "status_rollback": false,
+  "offer_id": "14261cfc-22fa-4214-8740-9ae412f1b9df"
+}
+```
+
+**Funded**
+
+The deal has moved to the ‘Funded’ stage.
+
+```json JSON
+{
+  "application_uuid": "55f7fdec-66e6-41d5-9d43-edb1ec75a8af",
+  "message": "Application status has been updated to Funded",
+  "url": "https://sandbox-api.lendflow.com/api/v2/applications/55f7fdec-66e6-41d5-9d43-edb1ec75a8af",
+  "timestamp": "2022-09-19T19:27:31.540823Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "funded",
+  "status_rollback": false
+}
+```
+
+**Declined**
+
+The deal was marked as ‘Dead’.
+
+```json JSON
+{
+  "application_uuid": "1d2ef371-09a2-4c9d-ba01-81dd8327cf1b",
+  "message": "Application status has been updated to Dead",
+  "url": "https://api.lendflow.com/api/v2/applications/1d2ef371-09a2-4c9d-ba01-81dd8327cf1b",
+  "timestamp": "2022-09-28T22:56:33.447649Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "declined",
+  "status_rollback": false
+}
+```
+
+**Plaid Connection Success**
+
+The applicant has successfully connected to their bank accounts in Plaid.
+
+```json JSON
+{
+  "application_uuid": "cd91729b-19b7-4799-82ae-a3f95a84ed05",
+  "message": "Successful Plaid connection created.",
+  "url": "https://app.lendflow.com/deals/cd91729b-19b7-4799-82ae-a3f95a84ed05/progress",
+  "timestamp": "2022-09-29T16:05:50.319567Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "application completed",
+  "status_rollback": false
+}
+```
+
+**Plaid Connection Failure**
+
+The applicant attempted to connect to their plaid account through the application widget or deal plaid connection link and plaid is unable to establish a connection returning an error response.
+
+```json JSON
+{
+  "application_uuid": "cd91729b-19b7-4799-82ae-a3f95a84ed05",
+  "message": "Successful Plaid connection failure.",
+  "url": "https://app.lendflow.com/deals/cd91729b-19b7-4799-82ae-a3f95a84ed05/progress",
+  "timestamp": "2022-09-29T16:05:50.319567Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "application completed",
+  "status_rollback": false
+}
+```
+
+**Codat Connection Success**
+
+```json JSON
+{
+  "application_uuid": "cd91729b-19b7-4799-82ae-a3f95a84ed05",
+  "message": "Successful Codat connection created.",
+  "url": "https://app.lendflow.com/deals/cd91729b-19b7-4799-82ae-a3f95a84ed05/progress",
+  "timestamp": "2022-09-29T16:05:50.319567Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "workflow_template_id": "97a3b38c-6529-4d36-ad87-25d198ef413e",
+  "status": "application started",
+  "status_rollback": false
+}
+```
+
+**Application Signed**
+
+The applicant completes the signed application via Docusign.
+
+```json JSON
+{  
+  "application_uuid": "eb176192-4738-4f0d-ae0d-ace90c9d9db7",
+  "message": "Application has been signed.",
+  "url": "https://qa2-dashboard.lendflow.co/deals/eb176192-4738-4f0d-ae0d-ace90c9d9db7/progress",
+  "timestamp": "2023-01-30T18:39:39.118256Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "application started",
+  "status_rollback": false
+}
+```
+
+**Application Signature Failed**
+
+The applicant completes the DocuSign signature step in the application widget, but an error response is returned from Docusign.
+
+```json JSON
+{ 
+  "application_uuid": "eb176192-4738-4f0d-ae0d-ace90c9d9db7",
+  "message": "Application signature has been failed.",
+  "url": "https://qa2-dashboard.lendflow.co/deals/eb176192-4738-4f0d-ae0d-ace90c9d9db7/progress",
+  "timestamp": "2023-01-30T18:32:32.946651Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "application started",
+  "status_rollback": false
+}
+```
+
+**Application Signature Requested**
+
+The applicant gets to the DocuSign step in the application widget and a signature is requested.
+
+```json JSON
+{ 
+  "application_uuid": "eb176192-4738-4f0d-ae0d-ace90c9d9db7",
+  "message": "Application signature has been requested.",
+  "url": "https://qa2-dashboard.lendflow.co/deals/eb176192-4738-4f0d-ae0d-ace90c9d9db7/progress",
+  "timestamp": "2023-01-30T18:32:32.946651Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "application started",
+  "status_rollback": false
+}
+```
+
+**Bank Statement Uploaded**
+
+The applicant uploads a PDF bank statement. Each time a statement is uploaded, a new webhook notification will fire.
+
+```json JSON
+{ 
+  "application_uuid": "eb176192-4738-4f0d-ae0d-ace90c9d9db7",
+  "message": "New document uploaded",
+  "url": "https://qa2-dashboard.lendflow.co/deals/eb176192-4738-4f0d-ae0d-ace90c9d9db7/documents",
+  "timestamp": "2023-01-30T18:41:36.437472Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "status": "application started",
+  "status_rollback": false,
+  "document_name": "043021 WellsFargo (1).pdf",
+  "document_type": "Manually Uploaded Bank Statements"
+}
+```
+
+**Any Document Uploaded**
+
+When the applicant uploads any document, a webhook notification will be sent.
+
+
+```json JSON
+{
+  "application_uuid": "b99f6e2c-fcb6-47d6-93cd-eaa6e64985b9",
+  "message": "New document uploaded",
+  "url": "https://app.lendflow.com/deals/b99f6e2c-fcb6-47d6-93cd-eaa6e64985b9/documents",
+  "timestamp": "2023-04-26T17:39:42.916642Z",
+  "client_tracking_token": null,
+  "workflow": "funding",
+  "workflow_template_id": "97a3b38c-6529-4d36-ad87-25d198ef413e",
+  "status": "offer",
+  "status_rollback": false,
+  "document_name": "Screen Shot 2023-04-26 at 10.39.34 AM.png",
+  "document_type": "Financial statement"
+}
+```

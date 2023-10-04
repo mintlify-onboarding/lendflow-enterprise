@@ -1,0 +1,203 @@
+---
+title: "Golden Path for Funders"
+slug: "golden-path-for-funder-utilize-webhook-notifications-retrieve-data-and-submit-offers"
+---
+## Webhooks
+
+Users can utilize Lendflow’s webhook functionality to be notified about important events. The following webhooks are commonly used by funders:
+
+<Card title="Application Fully Submitted" icon="check" icontype="duotone">
+</Card>
+<Card title="Any Document Uploaded" icon="upload" icontype="duotone">
+</Card>
+<Card title="Offer Accepted" icon="thumbs-up" icontype="duotone">
+</Card>
+<Card title="Offer Declined" icon="thumbs-down" icontype="duotone">
+</Card>
+
+Refer to the webhook guide on how to configure webhooks: [Lendflow-External](/api-reference/lendflow-validations-for-data-collection) 
+
+## Retrieve Application Data
+
+**Retrieve Application Data for a Single Application**
+
+To retrieve application data for a single application, use the following endpoint: [Lendflow-External](/api-reference/execute-workflow/retrieve-applications-using-workflow-builder).  
+Users must be authenticated using their API bearer token. To find the bearer token, go to the Integrations tab on the Lendflow dashboard and hit the blue ‘copy' button next to the ‘API bearer’ field to copy the value to clipboard. 
+
+![](https://files.readme.io/e019c41-Screen_Shot_2023-02-01_at_3.56.02_PM.png "Screen Shot 2023-02-01 at 3.56.02 PM.png")
+
+The application UUID is also required. This will be provided in the response from the webhook notification  ‘Application fully submitted’.
+
+![](https://files.readme.io/7e22c70-Screen_Shot_2023-02-02_at_12.06.27_PM.png "Screen Shot 2023-02-02 at 12.06.27 PM.png")
+
+**Retrieve Application Data for All Applications**
+
+To retrieve all the applications and the **application** data from Lendflow, use the following endpoint:  [Lendflow-External](//api-reference/lendflow-validations-for-data-collection).
+
+## Retrieve Documents
+
+Users can turn on the ‘Any Document Uploaded’ webhook to be notified when a document is uploaded.
+
+Users can request all documents or particular document types via the API using the following endpoint [Lendflow-External](/api-reference/execute-workflow/fetch-all-plaid-data).  To download all documents, solely fill out the `application_id` field. To download a particular document type e.g. financial statements and offer stips, fill out the document_types field with the relevant integer e.g. `document_types[]=5&document_types[]=4`.
+
+Note every tool used to download the files will handle the download differently, but if using postman, when prompted to give a file name, add the file extension ‘.zip’ to the file name.
+
+## Retrieve Bank Account Data
+
+To retrieve applicant bank account data from Plaid, use the following endpoint: [Lendflow-External](https://docs.lendflow.com/api-docs/reference/fetchtheapplicationsbankaccountdatastoredfromplaid). Note a Plaid connection must exist on the application. Below is an example of a sample response from this endpoint:
+
+```json
+{ "data": [ { 
+"name": "Cool Bank Account",
+"type": "depository", 
+"subtype": "checking", 
+"account_number": "123456789", 
+"routing_number": "111122223" } ] }
+```
+
+## Retrieve Plaid JSON
+
+Users can retrieve the JSON for the Plaid Asset Report or the Plaid Transactions Report. For the Plaid Asset Report, enter the application_id and use the following endpoint: [Lendflow-External](https://docs.lendflow.com/api-docs/reference/fetchthelatestplaidassetreportforthepassedinapplication). For the Plaid Transactions Report, enter the application_id and use the following endpoint: [Lendflow-External](https://docs.lendflow.com/api-docs/reference/fetchthelatestplaidtransactionsforthepassedinapplication).
+
+## Enrich Application Data
+
+Users can utilize webhook notifications to understand when Plaid has been successfully connected, bank statements have been uploaded or when an application has been fully submitted. Once the notification comes through, it can be used as a trigger to move the application to the next stage using the following endpoint: [Lendflow-External](https://docs.lendflow.com/api-docs/reference/updateanapplicationusingworkflowbuilder). To move the application to the next stage, set the move_to_next_stage flag to true. This will move the application from the Application stage to the Underwriting stage. Once the application is in the Underwriting stage, the user can run a Data Orchestration template with providers such as MoneyThumb,  Ocrolus and more. Alternatively to move through multiple stages to a specific stage, use the `move_to_stage_id` field.
+
+## Run Data Orchestration
+
+To run a Data Orchestration automatically as soon as the deal moves into the Underwriting stage, users can set up a Data Orchestration template with an automatic trigger.  If users prefer to run Data Orchestration manually, a manual trigger option is also available. For more information on manual and automatic triggers, view this guide:[Lendflow-External](https://docs.lendflow.com/api-docs/docs/how-to-set-manual-and-automatic-orchestration-triggers).
+
+**Run Data Orchestration Manually**
+
+For users who want to run Data Orchestration manually via the API, there is no need to use the ‘Enrich Application Data’ endpoint. Data Orchestration can be set off manually when the application is in the Application stage or any other stage. To view available, published Data Orchestration templates using the following endpoint: [Lendflow-External](https://docs.lendflow.com/api-docs/reference/availabledataorchestrationtemplates).Make a note of the Data Orchestration UUID for the template which we will use in the next endpoint.
+
+To run Data Orchestration manually on a deal via the API, use this endpoint: [Lendflow-External](/api-reference/execute-workflow/fetch-all-plaid-data). Enter the Data Orchestration template id in the template_id field and the application uuid in the application_id field.
+
+## Retrieve Data Provider Information
+
+When a Data Orchestration template or any data provider has run, information and the payload from these runs can be viewed via the API using this endpoint: [Lendflow-External](https://docs.lendflow.com/api-docs/reference/getenrichmentsummary-1).
+
+The response will contain details on the provider name, the time the last run began, the failed time and error. Users can optionally filter/request data by using the following fields:
+
+`include_data` =1 will fetch the latest available data for each provider, including it alongside the above mentioned stats.
+
+`started`=1 will filter for only providers which have actually been enriched.
+
+`failed` =1 will filter for providers which have failed to enrich and returned an error.
+
+`services[]` will filter the response to only the requested data providers 
+
+The accepted data providers for the \`services\[] field are:
+
+```text
+experian_uccs
+experian_bankruptcies
+experian_judgments
+experian_liens
+experian_intelliscore
+experian_intelliscore_v3
+experian_fsr
+experian_fsr_v2
+experian_commercial_collections
+experian_credit_status
+experian_legal_collections
+experian_trades
+experian_corporate_registrations
+experian_business_contacts
+experian_business_facts
+experian_fraud_shields
+experian_business_match
+experian_gdn_company_profile
+experian_gdn_risk_check
+experian_gdn_small_report
+experian_gdn_extended_report
+experian_gdn_canadian_profile_report
+experian_bop_blended_prequalification
+experian_bop_commercial_lending_to_a_sole_prop
+experian_bop_commercial_lending_with_a_pg
+experian_bop_commercial_insurance
+experian_bop_merchant_cash_advance
+experian_bop_merchant_acquisition
+experian_bop_commercial_factoring
+experian_bop_blended_account_review
+experian_bop_commercial_collections
+equifax_business_principal_report
+dnb_cer_l1
+dnb_ci_l2
+dnb_pi_l3
+dnb_fi_l2
+dnb_fi_l3
+dnb_fi_l4
+dnb_dti_l1
+dnb_bm_l1
+enigma_match
+enigma_lookup
+clear
+clear_id_confirm_person
+clear_risk_inform_person_search
+clear_risk_inform_person_report
+clear_id_confirm_business
+clear_risk_inform_business_search
+clear_risk_inform_business_report
+clear_court_search
+clear_adverse_media_search
+clear_adverse_media_report
+sentilink
+sentilink_dob_completion
+sentilink_ssn_completion
+plaid
+plaid_asset_report
+socure_dv
+socure_kyc
+socure_fraud
+lexis_nexis_kyc
+lexis_nexis_kyc_report
+lexis_nexis_kyb_search
+lexis_nexis_kyb_report
+lexis_nexis_corporate_filing_search
+lexis_nexis_corporate_filing_report
+lexis_nexis_ucc_filing_search
+lexis_nexis_ucc_filing_report
+lexis_nexis_bankruptcy_search
+lexis_nexis_bankruptcy_report
+lexis_nexis_liens_and_judgment_search
+lexis_nexis_liens_report
+lexis_nexis_judgments_report
+moneythumb_cfa
+middesk
+heron
+persona
+inscribe
+ekata
+scorely
+ocrolus_cfa
+ntropy
+railz
+codat
+mx
+rutter
+```
+
+## Submitting Offers
+
+To create new offers in Lendflow via the API, use the following endpoint [Lendflow-External](/api-reference/offers/create-a-self-funded-offer). The `application_id` and `product_id` are required fields. The accepted `product_ids` are: 
+
+`1 (ARLOC), 2 (Line of credit), 3 (Receivables Purchase), 4 (Term loan), 5 (Equipment Financing), 6 (Equipment Rental), 7 (Credit Card), 8 (Charge Card)`
+
+To view the available fields to submit, refer to this guide: [Lendflow-External](/offers/offer-field-requirements-by-products)
+
+When specifying stips, the stips integers are:
+
+`1 (Tax Return), 2 (UCC Docs), 3 (Lien Documents), 4 (Site Photo), 5 (Income Statement), 6 (Balance Sheet), 7 (Aging Reports), 8 (Site Video), 9 (Mortgage Agreement), 10 (Drivers License), 11 (Proof of Ownership), 12 (Business License), 13 (Bank Link), 14 (Judgement Docs), 15 (Payoff Letter), 16 (Balance Letter), 17 (Trade Reference Information), 18 (Merchant Processing Statements), 19 (Rent Checks), 20 (Bank Statements), 21 (Passport), 22 (Green Card), 23 (Car Title), 24 (Title to Home), 25 (Deed), 26 (Tax Lien Docs), 27 (Bankruptcy Docs), 28 (Vendor Contact Info), 29 (Landlord Contact Info)`
+
+## Retrieving Offer Details or Funded Details
+
+If Lendflow is leading the communication with the applicant, Lendflow will notify users on the status of an offer via the following webhooks: Offer Accepted, Offer Sent, Offer Declined, Offer Retracted. In this webhook notification, Lendflow will send the `offer_id`. To locate the offer details using this `offer_id`, use the following endpoint [Lendflow-External](/api-reference/offers/application-offers) to return the full offer details.
+
+## Updating the Offer Status
+
+If client users are leading the communication with the applicant at the offer stage, then this endpoint can be used to update the offer status [Lendflow-External](/api-reference/offers/update-offer-status).
+
+## Rejecting an Application
+
+To reject an application via the API, use the following endpoint [Lendflow-External](/api-reference/offers/decline-current-offers). Specify the application id of the deal to be rejected and submit a reason and sub-reason. These reason fields are freeform and accept any string values.

@@ -1,0 +1,25 @@
+---
+title: "Auto update SSN with Sentilink"
+---
+
+## How to automatically update SSN within the application with the SSN received from Sentilink
+
+You now have the ability to include the “Update SSN” step within the Sentilink data block which allows you to automatically update the SSN field in the Application stage of the deal if the confidence score set for SSN in the conditional argument is higher than the amount you have set.
+
+To include the “Update SSN” step:
+
+1. Select “Sentilink” data block
+
+2. Check the box next to the “Update SSN” field
+
+3. Set confidence score
+
+4. Apply the changes
+
+![](/images/b580261-image-20220311-170746.png)
+
+<Check>
+If you complete the actions listed above, when the Sentilink data provider is run against the data in the Application stage, Sentilink will generate SSN with a set confidence score. If that confidence score is within the parameters set by the user in the Data orchestration template, then SSN will get automatically updated within the application stage. That will help you avoid manual entry of SSN within the application stage in case the application was missing SSN from the beginning.
+
+If the confidence score is not within the parameters set by the user, then the SSN will not get automatically updated within the application stage.
+</Check>

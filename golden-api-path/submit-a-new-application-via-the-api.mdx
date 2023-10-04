@@ -1,0 +1,53 @@
+---
+title: "Submit a New Application via the API"
+slug: "submit-a-new-application-via-the-api"
+description: "The Workflow Builder allows users to fully customize their workflow templates and increased flexibility when submitting deals via the API. The endpoint to submit a new application requires two inputs: authentication using a bearer token and a workflow template ID. The workflow template ID will match the submitted application to the desired workflow builder template. The specified template ID can be a global template or a client created template."
+---
+
+## Creating a Sample Payload
+
+Begin by creating a sample payload. Running one of the sample payload endpoints will output a guide on the format of data to use when using the submit endpoint. There are two endpoints which can be used to create a sample payload.
+
+Endpoint 1: [Link Here](/api-reference/execute-workflow/sample-payload--workflow)
+
+Specify an application UUID of an existing deal. This endpoint will use this application as a guide and output dummy data. Copy the response. The response can be used as a guide on how to format the inputs for the submission endpoint.
+
+![](/images/sample-payload.png)
+
+Endpoint 2: [Link Here](/api-reference/execute-workflow/sample-payload--workflow-template)
+
+For new customers, this alternative endpoint allows the user to specify a workflow template ID e.g a global marketplace template ID and authorize using a bearer token. The response will be an example payload which can be copied and used as a guide in the submit application endpoint.
+
+![](/images/sample-payload-workflow-template.png)
+
+
+Once the user has their sample payload, they can paste the information into the following endpoint: [Link Here](/api-reference/execute-workflow/submit-a-new-application-using-a-specified-workflow-template)
+
+Remember to specify a global WFB template or a client WFB template, the workflow template id field. All other fields are optional. The user can alter their sample payload, delete fields which they don’t have data for and replace the values with the ones they would like to submit.
+
+When using a non-global WFB template, required fields can be customized in the template. The ‘with_validation’ field allows the user to choose whether to validate the required fields set in the template. 
+
+- If ‘with_validation’ is set to ‘true’, the endpoint will return any required fields which have no values. All required fields must have values filled out before the application submission is successful. 
+- If ‘with_validation’ is set to ‘false’, the application submission will be successful even if required fields have no  value set. However, the user will not be able to move the deal to the next stage until all the required fields have a value filled out.
+
+Users are also able to specify their own tracking tokens using the client_tracking_token and tracking_tokens fields.
+
+## Global Workflow Builder IDs
+
+To use the Lendflow Global templates as a guide, specify any of the following WFB template IDs in the ‘workflow_template_id’ field.
+
+Internal Funding: 393f1bc8-357d-428f-a955-173a2bd31472
+
+Business Credit: dc096eb5-5085-4eec-9675-314a75c89591
+
+Marketplace: 97a3b38c-6529-4d36-ad87-25d198ef413e
+
+Data Collection: 3a1f9385-bcb4-4fcd-b64f-7062b6142cf8
+
+The user can also find specific workflow builder IDs using this endpoint: [Link Here](/api-reference/execute-workflow/available-workflow-builder-templates) 
+
+## Enrich an Application
+
+Use the following endpoint to update any application details on a deal e.g. business information or individual information.
+
+[Link Here](/api-reference/execute-workflow/update-an-application-using-workflow-builder)

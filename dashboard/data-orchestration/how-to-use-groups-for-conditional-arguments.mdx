@@ -1,0 +1,34 @@
+---
+title: "Groups for conditional arguments"
+slug: "how-to-use-groups-for-conditional-arguments"
+createdAt: "2022-06-15T19:23:52.705Z"
+updatedAt: "2022-06-17T14:30:57.580Z"
+---
+
+## How to set an “or” statement and use Groups
+
+After selecting an attribute and clicking “add conditions group,” you can create an “or” statement between two groups of conditional arguments. This is useful for when you want to set two different conditional arguments, and if **either** conditional argument is true, it would go down the branch for those conditional arguments. 
+
+<video
+  controls
+  className="w-full aspect-video"
+  src="https://lendflow-documentation.s3.us-west-2.amazonaws.com/Groups1.mov"
+></video>
+
+<Info>
+  In this example: if the average daily balance is less than 4000 or if the average daily balance is greater than 6000, the overall conditional argument would be a “pass.
+</Info>
+
+## How to set an “and” statement
+
+When you select multiple attributes within the same conditional argument group, you can set an “and” statement. This is useful for when you want to set two different conditional arguments, and if both conditional arguments are valid, it would go down the branch for those conditional arguments. 
+
+<video
+  controls
+  className="w-full aspect-video"
+  src="https://lendflow-documentation.s3.us-west-2.amazonaws.com/groups2.mov"
+></video>
+
+<Info>
+  In this example: if the average daily balance is less than 4000 and if the average alternative lender payments is greater than 60000, the overall conditional argument would be a “pass.
+</Info>

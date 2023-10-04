@@ -1,0 +1,111 @@
+---
+title: "Golden API Path via Dashboard"
+slug: "golden-api-path-via-dashboard"
+hidden: true
+createdAt: "2022-07-26T19:28:31.770Z"
+updatedAt: "2022-07-26T20:00:38.259Z"
+---
+A Business Credit Application can be created via Widget or API call. The first step in creating a Business Credit Application via Widget is for your client to create it via your Credit Application Widget. You can obtain your Widget link via the Integrations tab on the Lendflow dashboard, additionally, you can use the script link to add your Widget to your website
+
+![](/images/7fbc53d-golddb1.png)
+
+When a client goes to the Widget link they can begin their credit application in which they will be asked to provide some application information (Loan Amount, TIB, Estimated Revenue, Personal Credit Score) as well as some business and personal information (Name, DBA, Email, Business Entity, Address, and more)
+
+![](/images/2b116d9-golddb2.png)
+
+Once the application is filled and sent, you will be able to see it on your Deals tab on the Lendflow dashboard where you are able to manage all your Business Credit Applications
+
+![](/images/cb923b6-golddb3.png)
+
+It is also possible to receive a webhook notification when one of your clients starts an application, webhooks are used to receive notifications for the different stages of an application. The webhooks settings can be found on the Organization tab on your profile, where you can modify the setting for your webhooks for both application progress and orchestration statuses
+
+![](/images/eb5a421-golddb4.png)
+
+When you receive an application started webhook it will contain application information, as well as the UUID for the deal which you can use to track it on the deal dashboard
+
+![](/images/93331ed-golddb5.png)
+
+Once the application proceeds into the enrichment stage (Underwriting) you can begin to enrich your client's application information with our data services. The Match tab on the underwriting stage provides match services for personal and business information (SSN, DOB, BIN, Address, and more) that can enrich your client's current application
+
+![](/images/28dc804-golddb6.png)
+
+In order to use a service you need to click the “Run Service” button which will be followed by a confirmation button, once you confirm the service the dashboard will run the service and once it’s ready the dashboard will be updated with the response information
+
+![](/images/b5628b6-golddb7.png)
+
+In the enrichment stage, you can also find different commercial data services for your credit applications, where you can enrich your applications even further with business information. The commercial data services provided are
+
+- Know Your Business (KYB)
+
+- Business Credit
+
+- Bankruptcies
+
+- Judgments
+
+- UCC Filings
+
+- Liens
+
+![](/images/aca2c6f-golddb8.png)
+
+Once you have identified the service and the provider you wish to run, you must click on the “Run Service” button and then confirm
+
+It is also possible to enrich your applications via Orchestration. To create an Orchestration workflow you must go to the Orchestration templates menu which can be found on your user profile. In the template menu, you can either select an existing Orchestration template to edit it or create a new template using the “New Template button”
+
+![](/images/fadb000-golddb9.png)
+
+This will take you to the specific template, or a new one, that you decided to edit where you can set up the required steps to use the Enrich Match services and which ones to use
+
+![](/images/2634117-golddb10.png)
+
+In order to enrich applications via Orchestration, it is necessary to go into the Underwriting stage of the deal Dashboard and click on the “Run Orchestration” drop-down menu and select the Orchestration workflow that you wish to run
+
+![](/images/3701d12-golddb11.png)
+
+Once orchestration is started you can follow its status via the Lendflow dashboard using the Deals tab (Orchestration Status column) or the deal dashboard on the underwriting stage
+
+![](/images/9a52687-golddb12.png)
+
+![](/images/f1c66e4-golddb13.png)
+
+The Orchestration status has four possible values:
+
+- NOT STARTED
+
+- COMPLETE-PASS
+
+- REVIEW
+
+- COMPLETE-FAIL
+
+Finally, when you need a client to connect their account via Plaid connection, in order to analyze their finances, you need to send them the Plaid Widget link which can be found on the Application Links on the deal dashboard.
+
+![](/images/6d86183-golddb14.png)
+
+Once you click on the copy link icon, you will receive a link that you can share with your client in which they have to follow the necessary steps for the Plaid connection to be made and grant you access to their bank account information, the account information, and connection status can be found on the Deal Progress tab under the Application dashboard
+
+![](/images/e0dbe1e-golddb15.png)
+
+Once a plaid connection is made, a Cash Flow Analysis (CFA) of your clients' finances can be run, you can do this via the Ocrolus CFA service which you can find on the Cash Flow Analysis tab, you can start the Ocrolus CFA by clicking on the “Run Service” button and then Confirm. Once the service is ran, the dashboard will update with the results and you will be able to see the financial analysis of the account linked via Plaid (it is also possible to do an Ocrolus CFA of Bank Statements files that your client has sent you)
+
+![](/images/4078c63-golddb16.png)
+
+The CFA will complete the enrichment (underwriting) stage of the application and it will be ready to be moved into the Score Cards stage. Scorecards are a systematic way to match funders with deals, decisioning on issuing credit, or make any other decision on a deal that requires the input of multiple data attributes
+
+In order to run a Score Card on a deal, you must proceed to the Scorecards stage of a deal, where you will find all available Score Cards to your company
+
+![](/images/4c22c97-golddb17.png)
+
+There will be a drop-down menu with a “Run All” option, or you can click on the arrow and all the available Score Cards will appear and you can select which to run. Once a card run is completed, the dashboard will update with the results, providing you with Knockout indicator, Status, Risk tier, and total points
+
+If you want to see the specific results of a card for a deal, you can simply click on the card and it will provide you with a detailed view of the categories and point distributions
+
+![](/images/b351ab2-golddb18.png)
+
+You can find your Score Card templates and their IDs on your Profile → Underwriting → Scorecards. Here you can manage your Score Cards (duplicate, delete, edit) or create new ones using the “New Template” button
+
+![](/images/cf4f82e-golddb19.png)
+
+Once the desired Score Cards are run a deal, you can proceed into the Placements stage where the deal will be sent to different Lenders and you can begin receiving offers for the deal
+

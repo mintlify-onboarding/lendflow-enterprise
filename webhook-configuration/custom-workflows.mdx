@@ -1,0 +1,923 @@
+---
+title: "Custom Workflows"
+---
+
+## Configuring Webhook Notifications
+
+To configure webhook notifications, navigate to the workflow builder template settings by clicking on the user profile in the bottom left, select the ‘workflow’ tab and click on the desired template.
+
+![](/images/1232ec8-image-20230714-201548.png)
+
+Within the workflow template, click on the blue settings cog on the right.
+
+![](/images/b8f18c3-Screen_Shot_2023-07-14_at_1.18.06_PM.png)
+
+Click on the Webhooks tab. To turn on a webhook notification, check the box next to the desired webhook and enter a url in the ‘link’ box. Optionally, to add another url ‘link’ for the same webhook (i.e. to get notified in multiple url locations), click the ‘+' icon and enter the url. Hit the ‘Save Template’ button to apply the changes.
+
+![](/images/8f59520-Screen_Shot_2023-07-14_at_1.18.33_PM.png)
+
+## Application Progress Webhooks
+
+This group is divided into two categories: Application status changes, and application stage transitions.
+
+## Application Status Change
+
+These webhooks fire whenever there has been a change in an application’s status. The application status change is not tied to a stage transition.
+
+### Application Started
+
+This webhook fires when:
+
+<Card title="The applicant completes the first screen of the widget (excluding pre-qualification screens)" icon="window" icontype="duotone">
+</Card>
+<Card title="An application is created via the API" icon="square-terminal" icontype="duotone">
+</Card>
+<Card title="An application is duplicated" icon="clone" icontype="duotone">
+</Card>
+
+```json JSON
+{
+  "id": "webhook_01H50F7DR2GM61028X0ZCYQPNQ",
+  "created_at": "1689011861250",
+  "attempts": 1,
+  "event": "application.started",
+  "object": "empty.object",
+  "data": {
+    "object": {},
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Collect Data"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Dropoff
+
+This webhook fires when a user becomes inactive on the widget. Inactivity is defined as 10 minutes with no activity
+
+```json JSON
+{
+  "id": "webhook_01H8HDNK70Y1SB9GDQR8X9BQST",
+  "created_at": "1692801879264",
+  "attempts": 1,
+  "event": "widget.drop_off",
+  "object": "widget.session",
+  "data": {
+    "object": {
+      "product_type": 23,
+      "percent_progress": 31,
+      "last_active_at": "2023-08-23T14:34:19.000000Z"
+    },
+    "application": {
+      "id": "d03a101e-3310-4cb6-9ee8-37c9a89ba7ce",
+      "flow": {
+        "id": "8fdf9cfc-2a26-429d-ab50-82e0b3aefcb8",
+        "stage": {
+          "id": "862237f6-c649-452c-816c-80185b9432ed",
+          "name": "Application",
+          "category": "Collect Data"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "https://qa2-api.lendflow.co/api/v2/applications/d03a101e-3310-4cb6-9ee8-37c9a89ba7ce"
+    }
+  }
+}
+```
+`percent_progress` will provide the percentage of widget screens filled by the applicant
+
+### Application Fully Submitted
+
+This webhook fires when:
+
+- An application is submitted completely via the widget, OR
+- A business credit application is submitted via the legacy API endpoint `{{baseUrl}}/api/v1/applications/business_credit`, OR
+- The applicant signs the application via the Application Links → DocuSign Link, and there exists a Plaid connection on the application, and the application is completely signed, OR
+- An application is created by submitting a lender placement to an internal funder
+
+```json JSON
+{
+  "id": "webhook_01H50QJBRVTYRE91V53YZGCME6",
+  "created_at": "1689020608283",
+  "attempts": 1,
+  "event": "application.fully_submitted",
+  "object": "empty.object",
+  "data": {
+    "object": {},
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Collect Data"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Application Completed
+
+This webhook fires when an application is signed by all owners and has at least one bank statement uploaded.
+
+```json JSON
+{
+  "id": "webhook_01H50QS9KDCPRMJ18VN7K64F9M",
+  "created_at": "1689020835437",
+  "attempts": 1,
+  "event": "application.completed",
+  "object": "empty.object",
+  "data": {
+    "object": {},
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Collect Data"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Application Dead
+
+This webhook fires when an application is marked as dead.
+
+```json JSON
+{
+  "id": "webhook_01H50R0528TS29WE03FTQRFJS6",
+  "created_at": "1689021060168",
+  "attempts": 1,
+  "event": "application.dead",
+  "object": "application.death",
+  "data": {
+    "object": {
+      "reason": "Fraud",
+      "sub_reason": "Fraud Concern"
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Collect Data"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Application Stage Transition
+
+These webhooks fire whenever an application has moved into a new stage.
+
+```json JSON
+{
+  "id": "webhook_01H50R1B7FWA6QXH1S6SVRFVYT",
+  "created_at": "1689021099247",
+  "attempts": 1,
+  "event": "stage_transition.placement",
+  "object": "stage.transition",
+  "data": {
+    "object": {
+      "from": {
+        "id": "{previousFlowID}",
+        "stage": {
+          "id": "{previousStageID}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "to": {
+        "id": "{currentFlowID}",
+        "stage": {
+          "id": "{currentStageID}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "is_rollback": false,
+      "via_automation": false
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+## Signed Application Webhooks
+
+### Application Signature Requested
+
+This webhook fires when a new signature request is created.
+
+```json JSON
+{
+  "id": "webhook_01H5080EMAXWP9YN9KJPCNK5HN",
+  "created_at": "1689004292746",
+  "attempts": 1,
+  "event": "application.signature_requested",
+  "object": "adhoc",
+  "data": {
+    "object": [],
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Application Signed
+
+This webhook fires when a document was successfully signed.
+
+```json JSON
+{
+  "id": "webhook_01H50810B3XZMKJB61XSP4CMT4",
+  "created_at": "1689004310883",
+  "attempts": 1,
+  "event": "application.signed",
+  "object": "adhoc",
+  "data": {
+    "object": [],
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Application Signature Failed
+
+This webhook fires when a document failed to be signed.
+
+```json JSON
+{
+  "id": "webhook_01H50810JMXFWX3KDBP2EPG4WY",
+  "created_at": "1689004311124",
+  "attempts": 1,
+  "event": "application.signature_failed",
+  "object": "adhoc",
+  "data": {
+    "object": [],
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+## Document Webhooks
+
+### Bank Statement Uploaded
+
+```json JSON
+{
+  "id": "webhook_01H50QRM318Z5FBXYYZ7QXWBFP",
+  "created_at": "1689020813409",
+  "attempts": 1,
+  "event": "upload.bank_statement",
+  "object": "file",
+  "data": {
+    "object": {
+      "id": {fileId},
+      "name": "file_name.pdf",
+      "type": "Manually Uploaded Bank Statements"
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Any Document Uploaded
+
+This webhook fires when **any** new document has been uploaded to an application, regardless of the document type.
+
+```json JSON
+{
+  "id": "webhook_01H50QSG0GK87G4M95NBHWMBH2",
+  "created_at": "1689020842000",
+  "attempts": 1,
+  "event": "upload",
+  "object": "file",
+  "data": {
+    "object": {
+      "id": {fileId},
+      "name": "file_name.pdf",
+      "type": "Signed"
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Stips Uploaded
+
+This webhook fires when a new application stip or offer stip has been uploaded to an application.
+
+```json JSON
+{
+  "id": "webhook_01H50TBXTVDZVMRR7NRXD35G93",
+  "created_at": "1689023543131",
+  "attempts": 2,
+  "event": "upload.stip",
+  "object": "file",
+  "data": {
+    "object": {
+      "id": {fileId},
+      "name": "file_name.pdf",
+      "type": "Offer stip"
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+## Third-Party Connections Webhooks
+
+### Plaid Connection Success
+
+This webhook fires when a new Plaid connection is successfully made.
+
+```json JSON
+{
+  "id": "webhook_01H50H8WDYRRG0QD6910127AH0",
+  "created_at": "1689014006206",
+  "attempts": 1,
+  "event": "service.plaid.connection_success",
+  "object": "service.connection_status",
+  "data": {
+    "object": {
+      "service": "plaid",
+      "connected": true
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+}
+```
+
+### Plaid Connection Failure
+
+This webhook fires when a Plaid connection has failed.
+
+```json JSON
+{
+  "id": "webhook_01H4RWPG4Q8JJ36WZJ0VMQ2T48",
+  "created_at": "1688757551255",
+  "attempts": 1,
+  "event": "service.plaid.connection_failure",
+  "object": "service.connection_status",
+  "data": {
+    "object": {
+      "service": "plaid",
+      "connected": false
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Codat Connection Success
+
+This webhook fires when a new Codat connection is successfully established.
+
+```json JSON
+{
+  "id": "webhook_01H4KPGHPY1WKRWKM60R0S8AXS",
+  "created_at": "1688583292638",
+  "attempts": 1,
+  "event": "service.codat.connection_success",
+  "object": "service.connection_status",
+  "data": {
+    "object": {
+      "service": "codat",
+      "connected": true
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "{stageCategory}"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+## Data Orchestration Webhooks
+> STAGE DEPENDENT
+
+### Complete Pass
+
+This webhook fires when a data orchestration template runs and the `master status` is marked as `complete-pass`, and the `outcome` is marked as pass.
+
+``` json JSON
+{
+  "id": "webhook_01H50WAYHSE5TSW84PTC7A8EST",
+  "created_at": "1689025608249",
+  "attempts": 1,
+  "event": "data_orchestration.complete_pass",
+  "object": "data_orchestration",
+  "data": {
+    "object": {
+      "status": "finished",
+      "master_status": "complete-pass",
+      "outcome": "pass",
+      "started_at": "2023-07-10T21:46:46.000000Z",
+      "finished_at": "2023-07-10T21:46:46.000000Z",
+      "error": null
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Data Enrichment"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Complete Fail
+
+This webhook fires when a data orchestration template runs and the `master status` is marked as `Complete-Fail`, and the outcome is marked as `fail`
+
+```json JSON
+{
+  "id": "webhook_01H50WKMMASRY6G6EBFR62F8NF",
+  "created_at": "1689025893002",
+  "attempts": 1,
+  "event": "data_orchestration.complete_fail",
+  "object": "data_orchestration",
+  "data": {
+    "object": {
+      "status": "finished",
+      "master_status": "complete-fail",
+      "outcome": "fail",
+      "started_at": "2023-07-10T21:51:31.000000Z",
+      "finished_at": "2023-07-10T21:51:31.000000Z",
+      "error": null
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Data Enrichment"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Manual Review
+
+This webhook fires when a data orchestration template runs and the outcome is marked as `manual review`.
+
+```json JSON
+{
+  "id": "webhook_01H50X811M9FGZJJFH80R8390G",
+  "created_at": "1689026561076",
+  "attempts": 1,
+  "event": "data_orchestration.manual_review",
+  "object": "data_orchestration",
+  "data": {
+    "object": {
+      "status": "finished",
+      "master_status": "review",
+      "outcome": "manual review",
+      "started_at": "2023-07-10T22:02:39.000000Z",
+      "finished_at": "2023-07-10T22:02:39.000000Z",
+      "error": null
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Data Enrichment"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Missing Data
+This webhook fires when a data orchestration template runs and the status is marked as `missing data`.
+
+```json JSON
+{
+  "id": "webhook_01H5029Y6X9X2XVPN5F53WY1ST",
+  "created_at": "1688998312157",
+  "attempts": 1,
+  "event": "data_orchestration.missing_data",
+  "object": "data_orchestration",
+  "data": {
+    "object": {
+      "status": "missing-data",
+      "master_status": "error",
+      "outcome": "undetermined",
+      "started_at": "2023-07-10T14:11:46.000000Z",
+      "finished_at": "2023-07-10T14:11:51.000000Z",
+      "error": "Prerequisite data for experian_bankruptcies is missing."
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Data Enrichment"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Error
+This webhook fires when a data orchestration template runs and the `status` is marked as `error`.
+
+```json JSON
+{
+  "id": "webhook_01H50WCR5BPVES4C5RDQYJ0MHC",
+  "created_at": "1689025667243",
+  "attempts": 1,
+  "event": "data_orchestration.error",
+  "object": "data_orchestration",
+  "data": {
+    "object": {
+      "status": "error",
+      "master_status": "error",
+      "outcome": "undetermined",
+      "started_at": "2023-07-10T21:47:46.000000Z",
+      "finished_at": "2023-07-10T21:47:47.000000Z",
+      "error": "Prerequisite data for 'Plaid Bank Data' cannot be obtained."
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Data Enrichment"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+## Offer Progress Webhooks
+> STAGE DEPENDENT
+
+### New Offer Created
+
+This webhook fires when a new offer has been created for an application.
+
+```json JSON
+{
+  "id": "webhook_01H50SH9SMAJJQ69CXW5RAK1TG",
+  "created_at": "1689022670644",
+  "attempts": 1,
+  "event": "offer.created",
+  "object": "offer",
+  "data": {
+    "object": {
+      "id": "{offerID}",
+      "status": null
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Offer"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Offer Sent
+
+This webhook fires when a new offer has been marked as sent.
+
+```json JSON
+{
+  "id": "webhook_01H50ST8PCGME9T9XBNWY23PN3",
+  "created_at": "1689022964429",
+  "attempts": 1,
+  "event": "offer.sent",
+  "object": "offer",
+  "data": {
+    "object": {
+      "id": "{offerID}",
+      "status": "sent"
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Offer"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Offer Accepted
+
+This webhook fires when a new offer has been marked as accepted.
+
+```json JSON
+{
+  "id": "webhook_01H50SV04YGGMW7400SNQS9CQ8",
+  "created_at": "1689022988446",
+  "attempts": 1,
+  "event": "offer.accepted",
+  "object": "offer",
+  "data": {
+    "object": {
+      "id": "{offerID}",
+      "status": "accepted"
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Offer"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Offer Retracted
+
+This webhook fires when a new offer has been marked as retracted.
+
+```json JSON
+{
+  "id": "webhook_01H50SWBMTWKEFDYEWD3QZ4FHM",
+  "created_at": "1689023032986",
+  "attempts": 1,
+  "event": "offer.retracted",
+  "object": "offer",
+  "data": {
+    "object": {
+      "id": "{offerID}",
+      "status": "retracted"
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Offer"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Offer Declined
+
+This webhook fires when a new offer has been marked as declined.
+
+```json JSON
+{
+  "id": "webhook_01H50SVMK0JHQF3A3XDP3Z2BGM",
+  "created_at": "1689023009376",
+  "attempts": 1,
+  "event": "offer.declined",
+  "object": "offer",
+  "data": {
+    "object": {
+      "id": "{offerID}",
+      "status": "declined"
+    },
+    "application": {
+      "id": "{applicationId}",
+      "flow": {
+        "id": "{flowId}",
+        "stage": {
+          "id": "{stageId}",
+          "name": "{stageName}",
+          "category": "Offer"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "http://api.ddev.site/api/v2/applications/{applicationId}"
+    }
+  }
+}
+```
+
+### Competing Offer
+This webhook fires when an application has received an offer from another funder. It will help funders identify if they should send out adverse action notifications to applicants. The webhook will fire with `"has_competition": true` when another funder creates an offer. Note that if an offer is created and then is retracted, a second webhook will fire with `"has_competition": false`
+
+```json JSON
+{
+  "id": "webhook_01H7DPJBDZVSDY3TWMDYYA43C2",
+  "created_at": "1691603250623",
+  "attempts": 1,
+  "event": "offer.competition",
+  "object": "adhoc",
+  "data": {
+    "object": {
+      "has_competition": true
+    },
+    "application": {
+      "id": "01f4f634-1726-4168-b5c2-fa8e16e481a0",
+      "flow": {
+        "id": "9211e46d-e3b4-4ea6-922d-35d3dfa7b54b",
+        "stage": {
+          "id": "eb22c9d5-7e15-4de2-81bb-1cf6fa928a69",
+          "name": "Application",
+          "category": "Collect Data"
+        }
+      },
+      "client_tracking_token": null,
+      "url": "https://api.lendflow.com/api/v2/applications/01f4f634-1726-4168-b5c2-fa8e16e481a0"
+    }
+  }
+}
+```

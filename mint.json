@@ -1,0 +1,294 @@
+{
+    "name": "Lendflow",
+    "logo": {
+      "light": "/logo/light.svg",
+      "dark": "/logo/dark.svg"
+    },
+    "favicon": "/favicon.svg",
+    "colors": {
+      "primary": "#00D85F",
+      "light": "#04FE72",
+      "dark": "#02C659"
+    },
+    "modeToggle": {
+      "default": "dark"
+    },
+    "api": {
+        "baseUrl": "http://api.lendflow.com",
+        "auth": {
+          "method": "bearer"
+      }
+    },
+    "feedback": {
+        "thumbsRating": true
+    },
+    "topbarCtaButton": {
+      "name": "Get a Demo",
+      "url": "https://www.lendflow.com/contact-us"
+    },
+    "topbarLinks": [
+      {
+        "name": "Login",
+        "url": "https://app.lendflow.com/login"
+      }
+    ],
+    "anchors": [
+      {
+        "name": "Quickstart Guide",
+        "icon": "play",
+        "url": "https://www.lendflow.com/quickstart-guide"
+      },
+      {
+        "name": "Blog",
+        "icon": "newspaper",
+        "url": "https://www.lendflow.com/blog"
+      }
+    ],
+    "tabs": [
+        {
+            "name": "API Reference",
+            "url": "api-reference"
+        },
+        {
+          "name": "Changelog",
+          "url": "changelog"
+      }
+    ],
+    "navigation": [
+      {
+        "group": "Getting Started",
+        "pages": [
+            "getting-started/introduction",
+            "getting-started/environments",
+            {
+                "group": "Errors",
+                "pages": [
+                    "getting-started/errors/overview",
+                    "getting-started/errors/data-providers-status-messages"
+                ]
+            }
+        ]
+      },
+      {
+        "group": "Golden API Path",
+        "pages": [
+            "golden-api-path/submit-a-new-application-via-the-api",
+            "golden-api-path/golden-path-for-funder-utilize-webhook-notifications-retrieve-data-and-submit-offers",
+            "golden-api-path/golden-api-path-via-dashboard"
+        ]
+      },
+      {
+        "group": "Webhook Configuration",
+        "pages": [
+            "webhook-configuration/custom-workflows",
+            "webhook-configuration/global-workflows",
+            "webhook-configuration/verifying-webhook-authenticity"
+        ]
+      },
+      {
+        "group": "Dashboard",
+        "pages": [
+          {
+            "group": "Data Orchestration",
+            "pages": [
+              "dashboard/data-orchestration/how-to-navigate-to-data-orchestration",
+              "dashboard/data-orchestration/creating-a-data-orchestration-template-adding-services-attributes-and-conditional-arguments",
+              "dashboard/data-orchestration/how-to-save-a-do-template-as-a-draft-edit-the-draft-and-publish-it",
+              "dashboard/data-orchestration/how-to-use-data-orchestrations-navigation-tools",
+              "dashboard/data-orchestration/how-to-use-groups-for-conditional-arguments",
+              "dashboard/data-orchestration/how-to-set-manual-and-automatic-orchestration-triggers",
+              "dashboard/data-orchestration/re-pulling-data-for-a-selected-data-service",
+              "dashboard/data-orchestration/replacing-a-data-service-block",
+              "dashboard/data-orchestration/running-all-data-blocks-in-a-do-template-regardless-of-the-outcome-status",
+              "dashboard/data-orchestration/how-to-automatically-update-ssn-within-the-application-with-the-ssn-received-from-sentilink",
+              "dashboard/data-orchestration/including-a-custom-date-range-for-ocrolus-and-plaid",
+              "dashboard/data-orchestration/handling-service-errors-with-data-orchestration"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Embedded Application Widget",
+        "pages": [
+          "embedded-application-widget/embedded-application-widget"
+        ]
+      },
+      {
+        "group": "Lendflow API Docs",
+        "pages": [
+            "api-reference/lendflow-validations-for-data-collection",
+            {
+              "group": "Application Widget",
+              "pages": [
+                "api-reference/application-widget/generate-plaid-docusign-and-codat-links",
+                "api-reference/application-widget/set-or-exchange-plaid-access-token",
+                "api-reference/application-widget/save-plaid-transactions",
+                "api-reference/application-widget/generate-temporary-links",
+                "api-reference/application-widget/get-widget-templates",
+                "api-reference/application-widget/create-widget-template",
+                "api-reference/application-widget/get-single-widget-template",
+                "api-reference/application-widget/update-widget-template",
+                "api-reference/application-widget/delete-widget-template",
+                "api-reference/application-widget/upload-widget-template-logo",
+                "api-reference/application-widget/delete-widget-logo"
+              ]
+            },
+            {
+              "group": "Legacy",
+              "pages": [
+                  "api-reference/legacy/fetch-the-latest-plaid-transactions-for-the-passed-in-application",
+                  "api-reference/legacy/apply-for-capital-legacy",
+                  "api-reference/legacy/retrieve-applications-legacy",
+                  "api-reference/legacy/retrieve-single-application",
+                  "api-reference/legacy/get-all-offers-legacy",
+                  "api-reference/legacy/apply-for-business-credit-1",
+                  "api-reference/legacy/enrich-business-credit-application",
+                  "api-reference/legacy/create-document-verification",
+                  "api-reference/legacy/pull-application-commercial-data",
+                  "api-reference/legacy/apply-for-capital",
+                  "api-reference/legacy/create-application-with-plaid",
+                  "api-reference/legacy/retrieve-applications",
+                  "api-reference/legacy/save-personal-address",
+                  "api-reference/legacy/save-business-address",
+                  "api-reference/legacy/save-piis",
+                  "api-reference/legacy/finish-application-processing",
+                  "api-reference/legacy/fetch-the-applications-bank-account-data-stored-from-plaid",
+                  "api-reference/legacy/fetch-the-latest-plaid-asset-report-for-the-passed-in-application",
+                  "api-reference/legacy/add-debt",
+                  "api-reference/legacy/update-debt",
+                  "api-reference/legacy/add-debtor",
+                  "api-reference/legacy/update-debtor",
+                  "api-reference/legacy/add-company-officer",
+                  "api-reference/legacy/update-company-officer",
+                  "api-reference/legacy/get-all-offers",
+                  "api-reference/legacy/retrieve-email-customizations",
+                  "api-reference/legacy/create-email-customization",
+                  "api-reference/legacy/retrieve-single-email-customization",
+                  "api-reference/legacy/update-email-customization",
+                  "api-reference/legacy/delete-email-customization",
+                  "api-reference/legacy/upload-email-customization-image",
+                  "api-reference/legacy/delete-logo-email-customization",
+                  "api-reference/legacy/delete-header-image-email-customization"
+              ]
+            },
+            {
+              "group": "Attribute Builder",
+              "pages": [
+                    "api-reference/attribute-builder/add-attribute-template-custom-value"
+              ]
+            },
+            {
+              "group": "Authentication",
+              "pages": [
+                "api-reference/authentication/get-bearer-token",
+                "api-reference/authentication/get-user-details",
+                "api-reference/authentication/refresh-access-token"
+              ]
+            },
+            {
+              "group": "Data Orchestration",
+              "pages": [
+                "api-reference/data-orchestration/get-a-data-orchestration-log-for-an-application",
+                "api-reference/data-orchestration/available-data-orchestration-templates",
+                "api-reference/data-orchestration/run-data-orchestration-for-an-application",
+                "api-reference/data-orchestration/restart-data-orchestration-as-pass-outcome"
+              ]
+            },
+            {
+              "group": "Data Providers",
+              "pages": [
+                "api-reference/data-providers/experian-service-availability"
+              ]
+            },
+            {
+              "group": "Documents",
+              "pages": [
+                "api-reference/documents/upload-application-files",
+                "api-reference/documents/retrieve-all-application-files",
+                "api-reference/documents/download-a-file",
+                "api-reference/documents/download-a-zip-file-containing-all-documents-for-an-application"
+              ]
+            },
+            {
+              "group": "Entity Profiles",
+              "pages": [
+                "api-reference/entity-profiles/create-new-profile",
+                "api-reference/entity-profiles/update-profile"
+              ]
+            },
+            {
+              "group": "Execute Workflow",
+              "pages": [
+                "api-reference/execute-workflow/lendflow-representative-contact-info",
+                "api-reference/execute-workflow/decline-application",
+                "api-reference/execute-workflow/get-enrichment-summary",
+                "api-reference/execute-workflow/add-application-metadata",
+                "api-reference/execute-workflow/fetch-all-plaid-data",
+                "api-reference/execute-workflow/update-the-applications-assigned-users-underwriter-analyst-etc",
+                "api-reference/execute-workflow/retrieve-applications-using-workflow-builder",
+                "api-reference/execute-workflow/submit-a-new-application-using-a-specified-workflow-template",
+                "api-reference/execute-workflow/retrieve-an-application-using-workflow-builder",
+                "api-reference/execute-workflow/update-an-application-using-workflow-builder",
+                "api-reference/execute-workflow/sample-payload--workflow",
+                "api-reference/execute-workflow/show-workflow-stages",
+                "api-reference/execute-workflow/available-workflow-builder-templates",
+                "api-reference/execute-workflow/sample-payload--workflow-template",
+                "api-reference/execute-workflow/get-integration-snippetapplication-link"
+              ]
+            },
+            {
+              "group": "Offers",
+              "pages": [
+                "api-reference/offers/application-offers",
+                "api-reference/offers/decline-current-offers",
+                "api-reference/offers/create-a-self-funded-offer",
+                "api-reference/offers/update-offer",
+                "api-reference/offers/confirm-an-offer",
+                "api-reference/offers/update-offer-status"
+              ]
+            },
+            {
+              "group": "Pre-Qualification",
+              "pages": [
+                "api-reference/pre-qualification/pre-qualification",
+                "api-reference/pre-qualification/save-prequalification-record",
+                "api-reference/pre-qualification/save-application-funds",
+                "api-reference/pre-qualification/monthly-revenues"
+              ]
+            },
+            {
+              "group": "Scorecards",
+              "pages": [
+                "api-reference/scorecards/update-score-card",
+                "api-reference/scorecards/retrieve-score-card-results-by-application",
+                "api-reference/scorecards/retrieve-score-card-group-results-by-application",
+                "api-reference/scorecards/run-specific-or-all-score-cards-against-the-application",
+                "api-reference/scorecards/run-specific-or-all-score-card-groups-for-an-application",
+                "api-reference/scorecards/list-all-score-cards",
+                "api-reference/scorecards/get-specific-score-card-details"
+              ]
+            },
+            {
+              "group": "Stips",
+              "pages": [
+                "api-reference/stips/update-application-stips",
+                "api-reference/stips/get-required-stips-for-single-application",
+                "api-reference/stips/get-required-stips-for-single-offer"
+              ]
+            }
+        ]
+      },
+      {
+        "group": "Changelog",
+        "pages": [
+          "changelog/sample"
+        ]
+      }  
+    ],
+    "footerSocials":
+      {
+          "twitter": "https://twitter.com/lendflowio",
+          "linkedin": "https://www.linkedin.com/company/lendflow"
+      }
+  }
+  

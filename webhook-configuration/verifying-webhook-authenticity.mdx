@@ -1,0 +1,56 @@
+---
+title: "Verifying Webhook Authenticity"
+description: "Webhook requests sent from Lendflow include HTTP headers that can be used to verify the request actually came from Lendflow and that the request body was not modified while in transit."
+---
+
+<Card title="Lendflow-Verification-Signature" icon="signature" icontype="duotone">
+  the signature to validate against
+</Card>
+<Card title="Lendflow-Verification-Timestamp" icon="clock" icontype="duotone">
+  a timestamp value
+</Card>
+
+Webhook verification is optional, but recommended.
+
+## Verifying a Signature
+
+Signature verification is done within your application's code by attempting to recreate and match the signature sent in the `Lendflow-Verification-Signature` header. The process in pseudocode is as follows:
+
+```bash bash 
+base64encode(hmac('sha256', timestamp + body, webhook_secret))
+```
+
+If signature verification fails, the webhook request should be rejected.
+
+<Note>
+    **The Webhook Secret**
+
+    Verification signatures are signed by your organization's webhook secret; a token that should be viewed and treated like a password.
+
+    Your organization's webhook secret must be requested from Lendflow's customer success team.
+</Note>
+
+**An Example**
+
+The example below shows how to verify a signature with PHP.
+
+```php webhook.php
+<?php
+
+$signature = $_SERVER['HTTP_Lendflow_Verification_Signature'];
+$timestamp = $_SERVER['HTTP_Lendflow_Verification_Timestamp'];
+$body = file_get_contents('php://input');
+$secret = 'your-webhook-secret-here';
+
+$verification = base64_encode(
+    hash_hmac('sha256', $timestamp . $body, $secret, binary: true),
+);
+    
+    
+if ($signature !== $verification) {
+    http_response_code(400);
+    exit;
+}
+
+// process the verified webhook request here...
+```

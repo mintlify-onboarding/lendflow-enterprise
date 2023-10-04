@@ -1,0 +1,29 @@
+---
+title: "Using the Customer Token & Additional Tracking Tokens"
+description: "The Customer Token & Additional Tracking tokens with the application widget enables users to track the origin and progress of applications. If added to the integration script, these tokens will be passed through the application widget when an application is created and can be reviewed in the dashboard."
+---
+
+## Incorporating the Client UUID & Tracking Tokens
+Step 1: Navigate to the Integrations Tab on the left side menu.
+
+![](/images/07681e2-Screen_Shot_2022-09-30_at_12.52.18_PM.png)
+
+Step 2: Click the "Advanced mode" toggle which will expose the array where you can add a customer tracking token (client uuid) to your integration script, as well as an array of additional tracking tokens.
+
+![](/images/2efe8d3-Screen_Shot_2022-09-30_at_12.56.08_PM.png)
+
+Step 3: When you add the integration script to your website, you can incorporate a customer token (client uuid) into the script as well as any array of additional tracking tokens. These tokens will be passed through with applications that are completed through this integration script. To embed, follow the integration steps in the "Embedding Application Widget" guide.
+
+Step 4: View the client uuid & customer tracking tokens within a deal. Click "Deals" Tab > Click an individual Deal > Click "Tracking"
+Here, you can view the Client UUID and additional tracking tokens that were submitted with the application. You can also add additional tracking tokens directly from the dashboard.
+
+![](/images/tokens-3.png)
+
+Step 5 (Optional): The tokens can also be used within a specific widget link, by modifying the widget link and appending: `&customerToken=123` and `&application_tracking_token=aa:`
+
+Thus, instead of `https://iw.lendflow.com/?env=BKckmXzcXUvTsfVx7nlD5yNsxRGYGUSX`
+
+the widget link with tracking tokens would be: `https://iw.lendflow.com/?env=BKckmXzcXUvTsfVx7nlD5yNsxRGYGUSX&customerToken=123&application_tracking_token=aa&application_tracking_token=bb`
+
+In this case, any applications generated from the below link would have the specified tracking tokens attached.
+

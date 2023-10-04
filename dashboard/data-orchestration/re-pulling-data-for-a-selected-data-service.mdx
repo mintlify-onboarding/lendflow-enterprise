@@ -1,0 +1,19 @@
+---
+title: "Re-pulling data for a selected data service"
+slug: "re-pulling-data-for-a-selected-data-service"
+createdAt: "2022-06-15T19:25:06.456Z"
+updatedAt: "2022-07-13T17:43:33.679Z"
+---
+
+## How to re-pull data for a selected data services
+
+Within a Data Orchestration template, you have the ability to select if you’d like to re-pull data for the selected data service if the existing data for that data service is older than X amount of hours/days/months. 
+
+This feature will allow you to have flexibility with refreshing/re-pulling data for data servicesю
+
+To set this condition, simply select a data block for the data service you’d like to automatically re-pull the data for→ check “Re-pull the data if it’s older than” checkbox and type the number of hours/days/months you’d like to apply to this condition. 
+
+**Example:** You have set the condition to re-pull data for Plaid if the data you have is older than 10 days. That means that if the data you originally pulled for this deal/business is older than 10 days, if you run the Data orchestration template → instead of using the data you have, it will automatically rerun the Plaid service and pull fresh data. 
+However, if the data you originally pulled is not older than 10 days, then if you rerun the Data Orchestration template → Plaid service will not be refreshed, and DO template will use the Plaid data you previously pulled. 
+
+![](/images/8c7aafc-image-20220315-184827.png)

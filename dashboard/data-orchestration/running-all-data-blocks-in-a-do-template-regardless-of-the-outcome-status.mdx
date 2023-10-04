@@ -1,0 +1,27 @@
+---
+title: "Running all Data Blocks Regardless of Outcome Status"
+description: "Users can configure their Data Orchestration template to run through all the data blocks in the template while still evaluating the conditional attributes. This ensures that if the outcome is pass or fail, the user can continue down the same path of data blocks."
+slug: "running-all-data-blocks-in-a-do-template-regardless-of-the-outcome-status"
+createdAt: "2023-02-28T14:22:29.256Z"
+updatedAt: "2023-07-26T15:43:44.067Z"
+---
+
+## Configuring Conditional Argument connections
+
+To configure connections to data blocks from both pass and fail arguments, navigate to a new template or edit a draft. For any conditional argument which is followed by a block (in this example, Business Credit), the user will see a blue icon below the conditional argument.
+
+![](https://files.readme.io/047482f-Screen_Shot_2023-02-27_at_12.00.47_PM.png)
+
+Click on the blue icon to connect the conditional argument to the next block. This example shows that once KYB is run, if the conditional attributes pass, the next block to be run is Business Credit. If the conditional attributes fail, the next block to be run is also Business Credit. 
+
+![](https://files.readme.io/c4e4e5f-Screen_Shot_2023-02-27_at_12.00.58_PM.png)
+
+Repeat these steps on the desired conditional arguments. Note that the master status will only represent the final data block outcome.
+
+![](https://files.readme.io/2a3e07c-Screen_Shot_2023-02-27_at_12.36.37_PM.png)
+
+## Disconnecting Conditional Argument from Data Blocks
+
+To remove the connection between conditional arguments and data blocks, click on the blue icon. This will remove the arrow to the data block below.
+
+![](https://files.readme.io/abd3f59-Screen_Shot_2023-02-27_at_12.14.05_PM.png)

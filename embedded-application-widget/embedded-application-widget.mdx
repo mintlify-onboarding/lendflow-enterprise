@@ -1,0 +1,40 @@
+---
+title: "Embedding Application Widget"
+description: "The application widget can be placed anywhere you want your customers to access capital within your product, it can be placed in your checkout, invoicing section, or on a landing page.  It’s a quick copy and paste."
+slug: "embedded-application-widget"
+createdAt: "2022-09-30T17:02:43.168Z"
+updatedAt: "2023-02-23T22:51:59.698Z"
+---
+
+**Step 1: Getting Started**
+
+Login to your Lendflow Account & Navigate to 'Integrations' tab in the left panel. This is where the integration script and steps for the application widget live.
+
+![](https://files.readme.io/e6562a8-8tE7HGwceRZcavvSgES89orzbdKZBcEypQ.png)
+
+**Step 2: Application Widget Settings**
+
+Select your Product Type, Widget Brand, Email Brand, & Workflow
+
+Product Type: There are multiple types of application widgets. Most commonly, partners use the Lending Widget (with Prequal), but there are also widgets without prequalification screens, and widgets geared toward specific types of credit products such as Invoice Factoring and Equipment Rental.
+
+Widget Brand & Email Brand: White-labeled logo & colors for the application widget that ensure the application widget has the proper feel & branding. The Email brand ensures that automated communication sent to your customers has your branding & feel. Both can be customized within the Customize tab.
+
+Workflow: This determines the workflow for processing applications - these workflows can be customized in the Workflow Builder. 
+
+![](https://files.readme.io/f1477b9-eYmdPVH3NZv41qalcf_DKGeu9Y22EUhTzA.png)
+
+**Step 3: Add Integration Script to Website **
+
+The script will appear as in the code snippet below. The code snippet should be added to the `<head>` tag of any page where you would like the application widget to appear.
+To create a custom address for your widget links, you can save the domain of a website where the integration script is embedded. After this, all of your widget links will have the custom address.
+
+```Text
+<script src="https://iw.lendflow.com/js/lendflow-loader.js"></script>
+```
+
+![](https://files.readme.io/5c05598-HXqX0ywdcCVud6uajzv2_pwzlqJ4x45uqw.png)
+
+**Step 4: Embed Widget Link in Buttons**
+
+Add the widget link generated on the Integration page to the website buttons where you would like the application widget to appear. Note that the integration script must already be added to the header of the page prior to adding the widget link to any individual buttons.

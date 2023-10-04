@@ -1,0 +1,76 @@
+---
+title: "How to create an orchestration template"
+sidebarTitle: "Create a Template"
+slug: "creating-a-data-orchestration-template-adding-services-attributes-and-conditional-arguments"
+createdAt: "2022-06-15T18:55:12.252Z"
+updatedAt: "2022-07-07T20:01:47.895Z"
+---
+
+## How to create an orchestration template
+
+You must click “New Template” in the top right corner and can input the template name, and a description, and apply multiple workflows to a template. After this, you will be taken to the orchestration template. 
+
+<video
+  controls
+  className="w-full aspect-video"
+  src="https://lendflow-api-staging-api-public-laravel-app.s3.us-west-2.amazonaws.com/HowtocreateDO.mov"
+></video>
+
+## Adding a data service
+
+One core purpose of data orchestration is to help businesses automate the process of using third-party services to help underwrite their customers. We offer several types of data services through the Data Orchestration platform. In this video, we will show how to drag and drop a data service of your choice. 
+
+<video
+  controls
+  className="w-full aspect-video"
+  src="https://lendflow-api-staging-api-public-laravel-app.s3.us-west-2.amazonaws.com/AddingServiceDO.mov"
+></video>
+
+
+<Info>
+  **What is a Data Service?**
+
+  Data services are third-party APIs that we offer through our credit decisioning engine. These APIs can be used to create customized orchestrations. We enable users to pick and choose from services such as KYC (ID Verification), KYB, Accounting Data, Cash Flow Analysis, Bankruptcies, Ecommerce Platform Data, Judgements, Liens, UCC Filings, Business Credit Reports, and more.
+</Info>
+
+## Adding attributes
+
+In this step, we are adding attributes for a given data service. As seen above, the data service we chose was Ocrolus as our Cash Flow Analysis API. For Ocrolus, we can choose multiple attributes we want to include in this block for the orchestration.
+
+<video
+  controls
+  className="w-full aspect-video"
+  src="https://lendflow-api-staging-api-public-laravel-app.s3.us-west-2.amazonaws.com/AddingAttributeDO.mov"
+></video>
+
+<Info>
+  **What is an Attribute?**
+
+  Attributes are the unique data points that tie to the API.
+</Info>
+
+## Setting conditional arguments
+
+Here, we are setting a pass conditional argument along with the value for each attribute. 
+
+<video
+  controls
+  className="w-full aspect-video"
+  src="https://lendflow-api-staging-api-public-laravel-app.s3.us-west-2.amazonaws.com/settingconditonalDO.mov"
+></video>
+
+<Info>
+  **What is a Conditional Argument?**
+
+  A conditional argument is the logic that you set for the attributes you selected in the previous step. You can have numeric values, boolean values, and more. \n\nThese conditional arguments can include three different states: pass, manual review, or fail. Pass or fail statuses can have branches below the status. You cannot have a branch after a manual review. In a manual review argument, you must manually change the status. \n\nThe system reads conditional arguments in the following order: pass, review, fail.
+</Info>
+
+## Deleting conditional arguments
+
+You can “bulk” delete conditional arguments. This allows you to delete multiple attributes in a group. You can also delete individual attributes in a conditional argument. 
+
+<video
+  controls
+  className="w-full aspect-video"
+  src="https://lendflow-api-staging-api-public-laravel-app.s3.us-west-2.amazonaws.com/DeletingConditonalArguments.mov"
+></video>
