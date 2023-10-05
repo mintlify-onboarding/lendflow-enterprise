@@ -1,5 +1,5 @@
 {
-    "name": "Lendflow",
+    "name": "Lendflow Enterprise",
     "logo": {
       "light": "/logo/light.svg",
       "dark": "/logo/dark.svg"
@@ -26,12 +26,6 @@
       "name": "Get a Demo",
       "url": "https://www.lendflow.com/contact-us"
     },
-    "topbarLinks": [
-      {
-        "name": "Login",
-        "url": "https://app.lendflow.com/login"
-      }
-    ],
     "anchors": [
       {
         "name": "Quickstart Guide",
